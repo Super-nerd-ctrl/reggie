@@ -8,6 +8,7 @@ import com.yt.reggie.common.R;
 import com.yt.reggie.domain.Employee;
 import com.yt.reggie.service.EmployeeService;
 import com.yt.reggie.mapper.EmployeeMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 * @createDate 2023-01-22 13:22:06
 */
 @Service
+@Slf4j
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
     implements EmployeeService{
 
@@ -62,13 +64,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
         //设置初始密码123456，需要进行MD5加密
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
 
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-
-        Long empId = (Long) request.getSession().getAttribute("employee");
-
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//
+//        Long empId = (Long) request.getSession().getAttribute("employee");
+//
+//        employee.setCreateUser(empId);
+//        employee.setUpdateUser(empId);
 
         this.save(employee);
 
@@ -92,8 +94,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
     public R<String> updateEmployee(HttpServletRequest request, Employee employee) {
 
         Long empId = (Long) request.getSession().getAttribute("employee");
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empId);
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(empId);
+        long id = Thread.currentThread().getId();
+        log.info("线程id为：{}", id);
         updateById(employee);
         return R.success("员工信息修改成功");
     }
