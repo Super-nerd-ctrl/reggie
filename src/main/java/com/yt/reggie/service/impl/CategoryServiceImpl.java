@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author Lenovo
@@ -79,6 +80,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     public R<String> updateCategory(Category category) {
         this.updateById(category);
         return R.success("修改信息分类成功");
+    }
+
+    @Override
+    public R<List<Category>> list(Category category) {
+
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(category.getType() != null, Category::getType, category.getType());
+        queryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
+
+        List<Category> list = this.list(queryWrapper);
+
+        return R.success(list);
     }
 }
 

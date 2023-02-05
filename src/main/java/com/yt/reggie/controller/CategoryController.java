@@ -7,6 +7,7 @@ import com.yt.reggie.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -37,5 +38,11 @@ public class CategoryController {
     public R<String> updateCategory(@RequestBody Category category) {
 
         return categoryService.updateCategory(category);
+    }
+
+
+    @GetMapping("/list")
+    public R<List<Category>> List(Category category) {
+        return categoryService.list(category);
     }
 }

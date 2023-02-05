@@ -5,6 +5,8 @@ import com.yt.reggie.common.R;
 import com.yt.reggie.domain.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author Lenovo
 * @description 针对表【category(菜品及套餐分类)】的数据库操作Service
@@ -40,4 +42,6 @@ public interface CategoryService extends IService<Category> {
      * @return
      */
     public R<String> updateCategory(Category category);
+
+    R<List<Category>> list(Category category);
 }
