@@ -1,7 +1,13 @@
 package com.yt.reggie.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yt.reggie.common.R;
 import com.yt.reggie.domain.Setmeal;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yt.reggie.dto.SetmealDto;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
 * @author Lenovo
@@ -10,4 +16,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SetmealService extends IService<Setmeal> {
 
+    R<Page> getPage(int page, int pageSize, String name);
+
+    @Transactional
+    R<String> saveSetmeal(SetmealDto setmealDto);
+
+    @Transactional
+    R<String> deleteSetmeal(List<Long> ids);
 }

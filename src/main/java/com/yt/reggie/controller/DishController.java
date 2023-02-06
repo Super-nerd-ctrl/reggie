@@ -2,12 +2,14 @@ package com.yt.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yt.reggie.common.R;
+import com.yt.reggie.domain.Dish;
 import com.yt.reggie.dto.DishDto;
 import com.yt.reggie.service.DishFlavorService;
 import com.yt.reggie.service.DishService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 菜品管理
@@ -59,5 +61,11 @@ public class DishController {
     public R<String> updateDish(@RequestBody DishDto dishDto) {
 
         return dishService.updateWithFlavor(dishDto);
+    }
+
+    @GetMapping("/list")
+    public R<List<Dish>> getDishList(Dish dish) {
+
+        return dishService.getDishList(dish);
     }
 }

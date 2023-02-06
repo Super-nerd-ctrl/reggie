@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.yt.reggie.dto.DishDto;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
 * @author Lenovo
 * @description 针对表【dish(菜品管理)】的数据库操作Service
@@ -28,4 +30,6 @@ public interface DishService extends IService<Dish> {
 
     @Transactional
     R<String> updateWithFlavor(DishDto dishDto);
+
+    R<List<Dish>> getDishList(Dish Dish);
 }

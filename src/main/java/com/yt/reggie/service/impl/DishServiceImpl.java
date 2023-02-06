@@ -128,6 +128,19 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
         dishFlavorService.saveBatch(flavors);
         return R.success("修改成功");
     }
+
+    @Override
+    public R<List<Dish>> getDishList(Dish dish) {
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Dish::getCategoryId, dish.getCategoryId());
+        queryWrapper.eq(Dish::getStatus, 1);
+
+        queryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+        List<Dish> list = list(queryWrapper);
+
+        return R.success(list);
+    }
+
 }
 
 
